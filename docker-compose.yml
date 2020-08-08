@@ -37,10 +37,10 @@ services:
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./nginx/conf.d:/etc/nginx/conf.d
-      # Apply certificate in nginx container
-      # or comment out the line below and mount the certificate into nginx container
-      - /etc/letsencrypt/live/smarthome2.haohao.in:/etc/letsencrypt/live/smarthome2.haohao.in
-      - /etc/letsencrypt/archive/smarthome2.haohao.in:/etc/letsencrypt/archive/smarthome2.haohao.in
+      # Mount the certificate into nginx container
+      - /path/to/certificate:/path/to/certificate/in/container
+      - /path/to/privkey:/path/to/privkey/in/container
+
     networks:
       - VoiceTalk-net
 
