@@ -1,5 +1,8 @@
 .PHONY: build-dev enter-dev config
 
+all:
+	docker-compose build
+
 build-dev:
 	docker-compose -f docker-compose-dev.yml build --build-arg UID=`id -u` \
 						       --build-arg GID=`id -g`
