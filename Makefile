@@ -17,6 +17,6 @@ config:
 	docker cp tmp-voicetalk:/voicetalk/device.json.sample ./voicetalk/device.json.sample
 	docker rm -f tmp-voicetalk
 	# Copy Nginx sample configuration file
-	docker run --name tmp-nginx -d nginx
+	docker run --name tmp-nginx -d nginx:1.19-alpine
 	docker cp tmp-nginx:/etc/nginx/nginx.conf ./nginx/nginx.conf.sample
 	docker rm -f tmp-nginx
