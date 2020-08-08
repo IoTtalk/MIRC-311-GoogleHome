@@ -2,3 +2,6 @@
 __pycache__
 *.egg-info
 nginx/nginx.conf.sample
+voicetalk/*.json
+voicetalk/*.ini
+voicetalk/*.sample
