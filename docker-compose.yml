@@ -5,7 +5,6 @@ services:
     image: mysql:5.7.26
     volumes:
       - db-data:/var/lib/mysql
-      - ./db/initdb.d:/docker-entrypoint-initdb.d:ro
     command: >
       --sql_mode=''
       --innodb_strict_mode=OFF
@@ -14,6 +13,7 @@ services:
       --interactive-timeout=31536000
     environment:
       MYSQL_ROOT_PASSWORD: hgurihngui24h4q
+      MYSQL_DATABASE: voicetalk
       MYSQL_USER: voicetalk
       MYSQL_PASSWORD: voicetalk-password
     networks:
