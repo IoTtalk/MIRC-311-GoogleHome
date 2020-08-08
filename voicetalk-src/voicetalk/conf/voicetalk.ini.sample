@@ -6,6 +6,9 @@ bind = 0.0.0.0
 # Bind port
 port = 8000
 
+# Flask secret key
+flask_secret_key = FLASK-SECRET-KEY
+
 [db]
 # example for MySQL:
 # url = mysql+pymysql://<username>:<password>@<host>:<port>/<dbname>
