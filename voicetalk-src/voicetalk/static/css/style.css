@@ -1,0 +1,13 @@
+.div-center {
+  width: 600px;
+  height: 300px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -150px 0 0 -300px;
+}
+
+.center {
+    text-align: center;
+    padding: 70px 0;
+}

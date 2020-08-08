@@ -1,0 +1,38 @@
+[core]
+
+# Bind address
+bind = 0.0.0.0
+
+# Bind port
+port = 8000
+
+[db]
+# example for MySQL:
+# url = mysql+pymysql://<username>:<password>@<host>:<port>/<dbname>
+
+pool-recycle = 600
+
+[google-api]
+
+# Client ID assigned to Google
+client_id = CLIENT_ID
+
+# Client secret assigned to Google
+client_secret = CLIENT_SECRET
+
+# API KEY given by Google
+api_key = API_KEY
+
+[iottalk]
+
+# IotTalk host
+host = http://IOTTALK_HOST:IOTTALK_PORT
+
+# Device name on IoTtalk
+device_name = DEVICE_MODEL_NAME
+
+# Device model name on IoTtalk
+device_model_name = GoogleHome
+
+# Device feature
+device_feature = Voice-I

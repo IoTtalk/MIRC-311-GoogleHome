@@ -1,0 +1,9 @@
+FROM python:3.7-alpine
+
+ARG UID
+ARG GID
+
+RUN apk update && \
+    apk add gcc musl-dev linux-headers libffi-dev && \
+    addgroup -g $GID user && \
+    adduser -D -G user user

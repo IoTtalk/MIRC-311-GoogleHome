@@ -1,0 +1,73 @@
+[
+  {
+    "id": "FluorescentLamp",
+    "type": "action.devices.types.LIGHT",
+    "traits": [
+      "action.devices.traits.OnOff"
+    ],
+    "name": {
+      "name": "Ceiling light",
+      "nicknames": [
+        "Ceiling Light"
+      ]
+    },
+    "willReportState": false
+  },
+  {
+    "id": "BigFan",
+    "type": "action.devices.types.FAN",
+    "traits": [
+      "action.devices.traits.OnOff",
+      "action.devices.traits.FanSpeed"
+    ],
+    "name": {
+      "name": "Big Fan",
+      "nicknames": [
+        "Fan"
+      ]
+    },
+    "attributes": {
+      "availableFanSpeeds": {
+        "speeds": [
+          {
+            "speed_name": "SLOW",
+            "speed_values": [
+              {
+                "speed_synonym": [
+                  "low",
+                  "slow"
+                ],
+                "lang": "en"
+              }
+            ]
+          },
+          {
+            "speed_name": "MEDIUM",
+            "speed_values": [
+              {
+                "speed_synonym": [
+                  "medium"
+                ],
+                "lang": "en"
+              }
+            ]
+          },
+          {
+            "speed_name": "FAST",
+            "speed_values": [
+              {
+                "speed_synonym": [
+                  "fast"
+                ],
+                "lang": "en"
+              }
+            ]
+          }
+        ],
+        "ordered": true
+      },
+      "reversible": false
+    },
+    "willReportState": false
+  }
+]

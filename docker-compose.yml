@@ -1,0 +1,51 @@
+version: "3.7"
+
+services:
+  db:
+    image: mysql:5.7.26
+    volumes:
+      - db-data:/var/lib/mysql
+      - ./db/initdb.d:/docker-entrypoint-initdb.d:ro
+    command: >
+      --sql_mode=''
+      --innodb_strict_mode=OFF
+      --character-set-server=utf8mb4
+      --wait-timeout=31536000
+      --interactive-timeout=31536000
+    environment:
+      MYSQL_ROOT_PASSWORD: hgurihngui24h4q
+      MYSQL_USER: voicetalk
+      MYSQL_PASSWORD: voicetalk-password
+    networks:
+      - VoiceTalk-net
+  voicetalk:
+    build: .
+    image: voicetalk
+    volumes:
+      - ./voicetalk:/voicetalk
+    networks:
+      - VoiceTalk-net
+    depends_on:
+      - nginx
+    command: >
+      voice-talk -c /voicetalk/voicetalk.ini -f /voicetalk/device.json start
+  nginx:
+    image: nginx:1.19-alpine
+    restart: always
+    ports:
+      - 1443:443
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      # Apply certificate in nginx container
+      # or comment out the line below and mount the certificate into nginx container
+      - /etc/letsencrypt/live/smarthome2.haohao.in:/etc/letsencrypt/live/smarthome2.haohao.in
+      - /etc/letsencrypt/archive/smarthome2.haohao.in:/etc/letsencrypt/archive/smarthome2.haohao.in
+    networks:
+      - VoiceTalk-net
+
+networks:
+  VoiceTalk-net:
+
+volumes:
+  db-data:

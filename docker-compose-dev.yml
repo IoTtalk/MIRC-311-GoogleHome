@@ -1,0 +1,17 @@
+version: "3.7"
+
+services:
+  voicetalk:
+    build:
+      context: .
+      dockerfile: Dockerfile-dev
+    image: voicetalk-dev
+    volumes:
+      - ./voicetalk:/voicetalk
+      # Mount the source code directory into the container
+      - ./voicetalk-src:/voicetalk-src
+    networks:
+      - VoiceTalk-net
+
+networks:
+  VoiceTalk-net:
