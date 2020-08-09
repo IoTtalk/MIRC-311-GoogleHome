@@ -39,12 +39,10 @@ iottalk_profile = {
 
 login_manager.init_app(app)
 
-db_instance = DB()
-db_instance.connect(config.db_conf['url'])
-
 
 @login_manager.user_loader
 def load_user(id):
+    db_instance = DB()
     with db_instance.get_session_scope() as db_session:
         user = (db_session.query(models.User)
                 .filter_by(id=id)
@@ -55,9 +53,16 @@ def load_user(id):
     return user
 
 
+@app.before_first_request
+def f():
+    db_instance = DB()
+    db_instance.connect(config.db_conf['url'])
+
+
 @app.route('/fulfillment', methods=['POST'])
 def fulfillment():
     authorization_header = request.headers.get('Authorization')
+    db_instance = DB()
 
     if not authorization_header:
         return '', 401
@@ -129,6 +134,7 @@ def fulfillment():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    db_instance = DB()
     redirect_uri = request.args.get('redirect_uri')
     client_id = request.args.get('client_id')
     response_type = request.args.get('response_type')
@@ -193,6 +199,7 @@ def logout():
 
 @app.route('/oauth')
 def oauth():
+    db_instance = DB()
     authorization_code = request.args.get('authorization_code')
     redirect_uri = request.args.get('redirect_uri')
     client_id = request.args.get('client_id')
@@ -244,6 +251,7 @@ def oauth():
 
 @app.route('/token', methods=['POST'])
 def token():
+    db_instance = DB()
     client_id = request.form.get('client_id')
     client_secret = request.form.get('client_secret')
     code = request.form.get('code')
