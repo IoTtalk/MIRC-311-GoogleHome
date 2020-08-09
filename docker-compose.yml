@@ -26,6 +26,7 @@ services:
     networks:
       - VoiceTalk-net
     depends_on:
+      - db
       - nginx
     command: >
       voice-talk -c /voicetalk/voicetalk.ini -f /voicetalk/device.json start
@@ -40,7 +41,6 @@ services:
       # Mount the certificate into nginx container
       - /path/to/certificate:/path/to/certificate/in/container
       - /path/to/privkey:/path/to/privkey/in/container
-
     networks:
       - VoiceTalk-net
 
