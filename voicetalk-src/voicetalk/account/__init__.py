@@ -8,6 +8,34 @@ from voicetalk.utils import password
 logger = logging.getLogger('VoiceTalk.account')
 
 
+def exist(db_session, username: str) -> bool:
+    """
+    Check a specific user exists or not.
+
+    :param db_session: SQLAlchemy ORM session
+    :param username: Username
+    :type username: ``str``
+    :return: ``True`` if the user exists, ``False`` otherwise.
+    :rtype: bool
+    """
+    return get(db_session, username) is not None
+
+
+def get(db_session, username: str) -> models.User or None:
+    """
+    Get the user whose username is the given username.
+
+    :param db_session: SQLAlchemy ORM session
+    :param username: Username
+    :type username: ``str``
+    :return: The mapped User object if the user exists, ``None`` otherwise.
+    :rtype: voicetalk.db.models.User or None
+    """
+    return (db_session.query(models.User)
+                      .filter_by(username=username)
+                      .first())
+
+
 def add_an_user(username: str, plaintext_password: str) -> models.User or None:
     db_instance = DB()
     db_instance.connect(config.db_conf['url'])

@@ -9,6 +9,12 @@ port = 8000
 # Flask secret key
 flask_secret_key = FLASK-SECRET-KEY
 
+# Default username
+username = INITIAL-USER
+
+# Password for the default user
+password = INITIAL-PASSWORD
+
 [db]
 # example for MySQL:
 # url = mysql+pymysql://<username>:<password>@<host>:<port>/<dbname>

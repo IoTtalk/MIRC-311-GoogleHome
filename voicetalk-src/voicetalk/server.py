@@ -8,6 +8,7 @@ from flask import (Flask, jsonify, render_template, request, redirect,
 from flask_login import (current_user, login_required, login_user, logout_user,
                          LoginManager)
 
+from voicetalk import account
 from voicetalk import const as CONST
 from voicetalk import device
 from voicetalk import cli
@@ -57,6 +58,7 @@ def load_user(id):
 def f():
     db_instance = DB()
     db_instance.connect(config.db_conf['url'])
+    add_default_user(config.username, config.password)
 
 
 @app.route('/fulfillment', methods=['POST'])
@@ -353,6 +355,25 @@ def index():
     return render_template('index.html', current_user=current_user)
 
 
+def add_default_user(username: str, plaintext_password: str):
+    db_instance = DB()
+    if not username or not plaintext_password:
+        import os
+        import signal
+        logger.error('Default username and plaintext password can not be empty')
+        os.kill(os.getpid(), signal.SIGINT)
+
+    with db_instance.get_session_scope() as db_session:
+        user = account.get(db_session, username)
+
+        if user:
+            logger.warning('Update default user\'s password')
+            user.password = password.hash(plaintext_password)
+        else:
+            account.add_an_user(username, plaintext_password)
+
+
+# For development use
 def main():
     app.run(host=config.bind_address,
             port=config.bind_port,

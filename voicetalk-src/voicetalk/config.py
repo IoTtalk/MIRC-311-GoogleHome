@@ -10,6 +10,8 @@ class Config:
     __bind_address = '0.0.0.0'
     __bind_port = 443
     __flask_secret_key = 'FLASK_SECRET_KEY'
+    __username = ''
+    __password = ''
     __db_conf = {
         'url': 'DB_URL',
         'pool_recycle': 600
@@ -61,6 +63,8 @@ class Config:
             set_(self, 'bind_address', s, option='bind')
             set_(self, 'bind_port', s, int, 'port')
             set_(self, 'flask_secret_key', s)
+            set_(self, 'username', s)
+            set_(self, 'password', s)
 
         if config.has_section('db'):
             s = dict(config.items('db'))
@@ -106,6 +110,22 @@ class Config:
     @flask_secret_key.setter
     def flask_secret_key(self, flask_secret_key):
         self.__flask_secret_key = flask_secret_key
+
+    @property
+    def username(self):
+        return self.__username
+
+    @username.setter
+    def username(self, username: str):
+        self.__username = username
+
+    @property
+    def password(self):
+        return self.__password
+
+    @password.setter
+    def password(self, password: str):
+        self.__password = password
 
     @property
     def db_conf(self):
