@@ -20,3 +20,9 @@ config:
 	docker run --name tmp-nginx -d nginx:1.19-alpine
 	docker cp tmp-nginx:/etc/nginx/nginx.conf ./nginx/nginx.conf.sample
 	docker rm -f tmp-nginx
+
+initdb:
+	docker-compose up -d db
+	@sleep 5
+	docker-compose run --rm voicetalk voice-talk -c /voicetalk/voicetalk.ini db create
+	docker-compose stop db
