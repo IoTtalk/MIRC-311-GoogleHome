@@ -19,7 +19,6 @@ from voicetalk.oauth2 import oauth2
 from voicetalk.utils import get_one_hour_after_timestamp, get_random_token, password
 
 app = Flask(__name__)
-app.secret_key = config.flask_secret_key
 dan_instance = DAN.DAN()
 login_manager = LoginManager()
 logging.basicConfig(level=logging.INFO)

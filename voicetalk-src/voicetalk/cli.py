@@ -149,11 +149,19 @@ def create_db(args):
 
 
 def start_voicetalk(args):
-    subprocess.run(['uwsgi', '--http-socket',
-                    '{}:{}'.format(config.bind_address, config.bind_port),
-                    '--module', 'voicetalk.server',
-                    '--callable', 'app',
-                    '--pyargv', ' '.join(sys.argv[1:])])
+    try:
+        # Using this import statement to check whether it's in uwsgi or not
+        import uwsgi  # noqa: F401
+    except ModuleNotFoundError:
+        subprocess.run(['uwsgi', '--http-socket',
+                        '{}:{}'.format(config.bind_address, config.bind_port),
+                        '--wsgi', 'voicetalk.wsgi',
+                        '--pyargv', ' '.join(sys.argv[1:])])
+    else:
+        from voicetalk.server import app
+        load_flask_config(app)
+
+        return app
 
 
 def load_config(args, config_file_arg_name: str = 'ini_path'):
@@ -161,6 +169,10 @@ def load_config(args, config_file_arg_name: str = 'ini_path'):
     """
     if getattr(args, config_file_arg_name):
         config.read_config(getattr(args, config_file_arg_name))
+
+
+def load_flask_config(app):
+    app.secret_key = config.flask_secret_key
 
 
 if __name__ == '__main__':
