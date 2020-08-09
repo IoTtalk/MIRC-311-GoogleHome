@@ -51,6 +51,12 @@ def get_template_files():
     return get_files(str(templates_directory))
 
 
+def get_static_files():
+    static_files_directory = Path(BASE_DIR) / 'voicetalk/static'
+
+    return get_files(str(static_files_directory))
+
+
 setup(
     name='VoiceTalk',
     version=voicetalk.version,
@@ -61,7 +67,10 @@ setup(
             itertools.chain(
                 get_alembic_data(),
                 ['device/device.json.sample', 'conf/voicetalk.ini.sample'],
-                get_template_files()))
+                get_template_files(),
+                get_static_files()
+            )
+        )
     },
     zip_safe=True,
     entry_points={
