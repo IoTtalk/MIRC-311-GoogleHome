@@ -155,6 +155,7 @@ def start_voicetalk(args):
     except ModuleNotFoundError:
         subprocess.run(['uwsgi', '--http-socket',
                         '{}:{}'.format(config.bind_address, config.bind_port),
+                        '--buffer-size', '8192',
                         '--wsgi', 'voicetalk.wsgi',
                         '--pyargv', ' '.join(sys.argv[1:])])
     else:
